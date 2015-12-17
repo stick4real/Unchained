@@ -7,7 +7,7 @@ Clone the project, open your terminal and launch the cmd : python3 manage.py run
 Then go at http://127.0.0.1:8000/ and it works. 
 Have fun.
 
-Functionalities : 
+Features : 
 
 Register / Login / Logout
 Create Article / Delete Article

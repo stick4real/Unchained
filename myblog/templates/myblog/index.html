@@ -47,13 +47,4 @@
         </div>
     </form>
 
-    <form action="{% url 'myblog:logout' %}" method="post">
-        {% csrf_token %}
-        <div>
-            <div>
-                <input type="submit" value="logout" />
-            </div>
-        </div>
-    </form>
-
 {% endblock %}

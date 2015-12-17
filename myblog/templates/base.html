@@ -10,6 +10,7 @@
     <nav>
         {% if user.is_authenticated %}
             <a href="/myblog">Unchained Home</a>
+            <a href="{% url 'myblog:logout' %}">logout</a>
         {% else %}
             {% block nav %}
                 <a href="/accounts/login/?next=/myblog/">Login</a> 

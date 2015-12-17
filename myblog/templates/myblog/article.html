@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} - Article{% endblock %}
+{% block content %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h1>{{ article.title }} </h1> by {{ article.user.username }} 
+    <h2>{{ article.content }}</h2>
+
+    {% if article.comment_set.all %}
+        {% for comment in article.comment_set.all %}
+            <div>
+                <div>{{ comment.user.username }}</div>
+                <div>{{ comment.content }}</div>
+                {% if user.id == comment.user.id %}
+                    <form action="{% url 'myblog:deleteComment' comment.id %}" method="delete">
+                        {% csrf_token %}
+                        <div>
+                            <div>
+                                <input type="submit" value="Delete" />
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}0 comments found.</p>
+    {% endif %}
+
+    <form action="{% url 'myblog:newComment' article.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div>
+                <textarea rows="4" cols="50" name="content"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Post a comment" />
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} - Register{% endblock %}
+{% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="{% url 'myblog:register' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div>
+                <input type="text" name="username" placeholder="username"/>
+            </div>
+            <div>
+                <input type="email" name="email" placeholder="email"/>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="password"/>
+            </div>
+            <div>
+                <input type="submit" value="Register" />
+            </div>
+        </div>
+    </form>
+{% endblock %}

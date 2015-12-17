@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %} - Home{% endblock %}
+{% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if latest_article_list %}
+        <ul>
+        {% for article in latest_article_list %}
+            <li><a href="{% url 'myblog:article' article.id %}">{{ article.title }}</a></li>
+                <div>
+                    <div>Created by {{ article.user.username }}</div>
+                    <div>{{ article.content }}</div>
+                    {% if user.id == article.user.id %}
+                        <form action="{% url 'myblog:deleteArticle' article.id %}" method="delete">
+                            {% csrf_token %}
+                            <div>
+                                <div>
+                                    <input type="submit" value="Delete" />
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>0 articles found.</p>
+    {% endif %}
+
+    <form action="{% url 'myblog:newArticle' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div>
+                <input type="text" name="title" placeholder="title"/>
+            </div>
+                <textarea rows="4" cols="50" name="content"></textarea>
+            <div>
+                <input type="submit" value="Create article" />
+            </div>
+        </div>
+    </form>
+
+    <form action="{% url 'myblog:logout' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <div>
+                <input type="submit" value="logout" />
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

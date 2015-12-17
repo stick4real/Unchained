@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Unchained {% block title %}{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Simple blog in Django">
+        <meta name="keywords" content="HTML, TWIG, DJANGO">
+        <meta name="author" content="Dumont Maxime">
+    </head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <a href="/myblog">Unchained Home</a>
+        {% else %}
+            {% block nav %}
+                <a href="/accounts/login/?next=/myblog/">Login</a> 
+            {% endblock %}
+        {% endif %}
+    </nav>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
